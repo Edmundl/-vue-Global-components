@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>全局组件</title>
+    <script src="importVueFile/vue.development.js"></script>
+	<style>
+		.list{
+			margin-left:10px;
+			margin-top:10px;
+			list-style: none;
+		}
+		.list>span{
+			margin-left:10px;
+		}
+	</style>
+</head>
+<body>
+    <script type="text/x-template" id="lilist">
+        <div>
+			<li>{{title}}</li>
+            <li v-for="(item,id) in news" class="list">
+				<span>编号:{{item.id}}</span><span>课程名:{{item.classname}}</span><span>学习难度:{{item.study}}<span>
+				<button @click="del(id)">删除</button>
+			</li>
+        </div>
+    </script>
+
+    <div id="app">
+        <ul>
+            <li-item></li-item>
+        </ul>
+    </div>
+    <script>
+		//全局组件注册
+        Vue.component('li-item', {
+            template: '#lilist',
+            data() {
+                return {
+					title:'学习的课程',
+                    news: [
+						{id:'0',classname:'java',study:'中等偏难'},
+                        {id:'1',classname:'php',study:'偏易'},
+						{id:'2',classname:'C',study:'中等'},
+						{id:'3',classname:'python',study:'偏易'},
+						{id:'4',classname:'C++',study:'难'}
+                    ]
+                };
+            },
+			methods: {
+				del(id) {
+					this.news.splice(id, 1);
+				}
+			}
+        })
+
+        new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+
+</html>
